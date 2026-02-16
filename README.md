@@ -1,6 +1,6 @@
 # Remote Sensing Image-to-Image ML Project
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -46,7 +46,8 @@ This is a **tutorial-based project** with 7 modules. Each module follows the **T
 
 ### Prerequisites
 
-- **Python**: 3.9 or higher
+- **Python**: 3.12 or higher
+- **uv**: Fast Python package installer (install via `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 - **GPU**: Optional but recommended (CUDA-capable or Apple Silicon MPS)
 - **Storage**: ~10GB for sample data and models
 - **Memory**: 8GB+ RAM recommended
@@ -58,12 +59,14 @@ This is a **tutorial-based project** with 7 modules. Each module follows the **T
 git clone <repository-url>
 cd arc-pytorch-prep
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Create virtual environment with uv (Python 3.12)
+uv venv --python 3.12
 
 # Install dependencies
-pip install -r requirements.txt
+uv pip install -r requirements.txt
+
+# Activate environment (optional, uv commands work without activation)
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Verify installation
 pytest tests/ -v
