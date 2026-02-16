@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 02 - UNet Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #1c1a28;
+      --bg-2: #2b2438;
+      --ink: #f7f2eb;
+      --muted: #c9c1b6;
+      --accent: #f6b352;
+      --card: rgba(255, 255, 255, 0.08);
+      --stroke: rgba(255, 255, 255, 0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(900px 500px at 15% 20%, #3b3150, transparent),
+                  radial-gradient(900px 600px at 85% 10%, #3f2e23, transparent),
+                  linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+    }
+    header { padding: 48px 24px 12px; max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 2.4rem; margin: 0 0 8px; }
+    p.lead { font-family: "Source Serif 4", serif; color: var(--muted); margin: 0; }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px; display: grid; gap: 24px; }
+    section { background: var(--card); border: 1px solid var(--stroke); border-radius: 16px; padding: 20px; }
+    h2 { margin: 0 0 12px; font-size: 1.3rem; }
+    ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { padding: 16px; border-radius: 14px; border: 1px solid var(--stroke); background: rgba(0, 0, 0, 0.25); transition: transform 0.2s ease, border-color 0.2s ease; }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card button { margin-top: 12px; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+    .answer { display: none; color: var(--ink); margin-top: 10px; }
+    .card.is-open .answer { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Module 02 - UNet Architecture</h1>
+    <p class="lead">Encoder, bottleneck, decoder, and the purpose of skip connections.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Theory highlights</h2>
+      <ul>
+        <li>Encoder captures context by shrinking spatial size and growing channels.</li>
+        <li>Decoder restores spatial detail using upsampling and skip connections.</li>
+        <li>Skip connections preserve localization and boundary detail.</li>
+        <li>Final layer outputs logits; activation happens in the loss or inference.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Flashcards</h2>
+      <div class="grid">
+        <div class="card">
+          <div><strong>Q:</strong> Why do we need skip connections in UNet?</div>
+          <div class="answer"><strong>A:</strong> They pass fine spatial details to the decoder for accurate boundaries.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> What happens to spatial size in the encoder?</div>
+          <div class="answer"><strong>A:</strong> It shrinks at each level, typically by a factor of 2.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> Why avoid sigmoid or softmax inside the model?</div>
+          <div class="answer"><strong>A:</strong> Loss functions expect logits and handle activation more stably.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> Why concatenate skip features instead of adding?</div>
+          <div class="answer"><strong>A:</strong> Concatenation preserves full feature information and channel capacity.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> What is the minimum input size for 5 levels?</div>
+          <div class="answer"><strong>A:</strong> 256x256, so the bottleneck remains at least 8x8.</div>
+          <button>Show</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('.card').forEach((card) => {
+      const btn = card.querySelector('button');
+      btn.addEventListener('click', () => {
+        card.classList.toggle('is-open');
+        btn.textContent = card.classList.contains('is-open') ? 'Hide' : 'Show';
+      });
+    });
+  </script>
+</body>
+</html>
