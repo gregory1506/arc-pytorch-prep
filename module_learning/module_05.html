@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 05 - ONNX Export</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #231c12;
+      --bg-2: #3a2c1f;
+      --ink: #f7f2eb;
+      --muted: #c9c1b6;
+      --accent: #fb7185;
+      --card: rgba(255, 255, 255, 0.08);
+      --stroke: rgba(255, 255, 255, 0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(900px 500px at 20% 10%, #4a2f1d, transparent),
+                  radial-gradient(900px 600px at 80% 20%, #3a3d22, transparent),
+                  linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+    }
+    header { padding: 48px 24px 12px; max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 2.4rem; margin: 0 0 8px; }
+    p.lead { font-family: "Source Serif 4", serif; color: var(--muted); margin: 0; }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px; display: grid; gap: 24px; }
+    section { background: var(--card); border: 1px solid var(--stroke); border-radius: 16px; padding: 20px; }
+    h2 { margin: 0 0 12px; font-size: 1.3rem; }
+    ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { padding: 16px; border-radius: 14px; border: 1px solid var(--stroke); background: rgba(0, 0, 0, 0.25); transition: transform 0.2s ease, border-color 0.2s ease; }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card button { margin-top: 12px; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+    .answer { display: none; color: var(--ink); margin-top: 10px; }
+    .card.is-open .answer { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Module 05 - ONNX Export</h1>
+    <p class="lead">Export, verify, and benchmark for deployment.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Theory highlights</h2>
+      <ul>
+        <li>ONNX is a framework-agnostic graph format for deployment.</li>
+        <li>Always export in eval mode to avoid stochastic layers.</li>
+        <li>Verify outputs within a tolerance to ensure correctness.</li>
+        <li>Quantization improves CPU speed at a possible accuracy cost.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Flashcards</h2>
+      <div class="grid">
+        <div class="card">
+          <div><strong>Q:</strong> Why is ONNX useful in production?</div>
+          <div class="answer"><strong>A:</strong> It decouples inference from PyTorch and enables optimized runtimes.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> Why must the model be in eval mode for export?</div>
+          <div class="answer"><strong>A:</strong> To freeze dropout and batch norm behavior for deterministic output.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> What does dynamic axes enable?</div>
+          <div class="answer"><strong>A:</strong> Variable batch size or spatial dimensions at inference.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> How do you verify export correctness?</div>
+          <div class="answer"><strong>A:</strong> Compare ONNX output to PyTorch output with a small tolerance.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> What is a common ONNX export pitfall?</div>
+          <div class="answer"><strong>A:</strong> Using an input shape that does not match the model.</div>
+          <button>Show</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('.card').forEach((card) => {
+      const btn = card.querySelector('button');
+      btn.addEventListener('click', () => {
+        card.classList.toggle('is-open');
+        btn.textContent = card.classList.contains('is-open') ? 'Hide' : 'Show';
+      });
+    });
+  </script>
+</body>
+</html>

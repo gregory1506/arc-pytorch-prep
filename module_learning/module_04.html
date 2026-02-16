@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 04 - Metrics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #1f2621;
+      --bg-2: #2b3328;
+      --ink: #f7f2eb;
+      --muted: #c9c4b9;
+      --accent: #f59e0b;
+      --card: rgba(255, 255, 255, 0.08);
+      --stroke: rgba(255, 255, 255, 0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(900px 500px at 20% 10%, #3c4b2f, transparent),
+                  radial-gradient(900px 600px at 80% 20%, #3a2e20, transparent),
+                  linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+    }
+    header { padding: 48px 24px 12px; max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 2.4rem; margin: 0 0 8px; }
+    p.lead { font-family: "Source Serif 4", serif; color: var(--muted); margin: 0; }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px; display: grid; gap: 24px; }
+    section { background: var(--card); border: 1px solid var(--stroke); border-radius: 16px; padding: 20px; }
+    h2 { margin: 0 0 12px; font-size: 1.3rem; }
+    ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { padding: 16px; border-radius: 14px; border: 1px solid var(--stroke); background: rgba(0, 0, 0, 0.25); transition: transform 0.2s ease, border-color 0.2s ease; }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card button { margin-top: 12px; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+    .answer { display: none; color: var(--ink); margin-top: 10px; }
+    .card.is-open .answer { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Module 04 - Metrics</h1>
+    <p class="lead">IoU and Dice for segmentation quality.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Theory highlights</h2>
+      <ul>
+        <li>Accuracy can be misleading with imbalanced classes.</li>
+        <li>IoU measures overlap: intersection divided by union.</li>
+        <li>Dice emphasizes overlap and is smoother for optimization.</li>
+        <li>Smoothing prevents divide-by-zero for empty masks.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Flashcards</h2>
+      <div class="grid">
+        <div class="card">
+          <div><strong>Q:</strong> Why is accuracy a poor metric for segmentation?</div>
+          <div class="answer"><strong>A:</strong> Background dominates the pixels, hiding poor foreground performance.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> How is IoU computed?</div>
+          <div class="answer"><strong>A:</strong> Intersection divided by union of prediction and ground truth.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> Why add smoothing to IoU or Dice?</div>
+          <div class="answer"><strong>A:</strong> To avoid divide-by-zero when both masks are empty.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> When do you prefer mIoU?</div>
+          <div class="answer"><strong>A:</strong> When you want to weight all classes equally.</div>
+          <button>Show</button>
+        </div>
+        <div class="card">
+          <div><strong>Q:</strong> How are Dice and IoU related?</div>
+          <div class="answer"><strong>A:</strong> Dice is a monotonic transform of IoU and is always higher for the same overlap.</div>
+          <button>Show</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('.card').forEach((card) => {
+      const btn = card.querySelector('button');
+      btn.addEventListener('click', () => {
+        card.classList.toggle('is-open');
+        btn.textContent = card.classList.contains('is-open') ? 'Hide' : 'Show';
+      });
+    });
+  </script>
+</body>
+</html>
